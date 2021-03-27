@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #343434;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #343434;" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.RegController">
    <children>
       <Label layoutX="372.0" layoutY="37.0" text="Авторизация" textFill="WHITE">
          <font>
@@ -27,17 +27,17 @@
             <Font name="Monospaced Regular" size="14.0" />
          </font>
       </TextField>
-      <TextField focusTraversable="false" layoutX="59.0" layoutY="143.0" prefHeight="38.0" prefWidth="199.0" promptText="Email" styleClass="text-input" stylesheets="@../styles/style.css">
+      <TextField fx:id="email_reg" focusTraversable="false" layoutX="59.0" layoutY="143.0" prefHeight="38.0" prefWidth="199.0" promptText="Email" styleClass="text-input" stylesheets="@../styles/style.css">
          <font>
             <Font name="Monospaced Regular" size="14.0" />
          </font>
       </TextField>
-      <PasswordField focusTraversable="false" layoutX="59.0" layoutY="200.0" prefHeight="38.0" prefWidth="199.0" promptText="Password" styleClass="text-input" stylesheets="@../styles/style.css">
+      <PasswordField fx:id="pass_reg" focusTraversable="false" layoutX="59.0" layoutY="200.0" prefHeight="38.0" prefWidth="199.0" promptText="Password" styleClass="text-input" stylesheets="@../styles/style.css">
          <font>
             <Font name="Monospaced Regular" size="14.0" />
          </font>
       </PasswordField>
-      <CheckBox focusTraversable="false" layoutX="49.0" layoutY="279.0" mnemonicParsing="false" selected="true" textFill="WHITE" underline="true">
+      <CheckBox fx:id="confidentials" focusTraversable="false" layoutX="49.0" layoutY="279.0" mnemonicParsing="false" selected="true" textFill="WHITE" underline="true">
          <graphic>
             <Hyperlink focusTraversable="false" styleClass="link" stylesheets="@../styles/style.css" text="Пользовательское соглашение" textFill="WHITE" underline="true">
                <font>
@@ -46,7 +46,7 @@
             </Hyperlink>
          </graphic>
       </CheckBox>
-      <Button layoutX="73.0" layoutY="312.0" mnemonicParsing="false" stylesheets="@../styles/style.css" text="Зарагестрироваться" textFill="#fffcfc">
+      <Button fx:id="btn_reg" layoutX="73.0" layoutY="312.0" mnemonicParsing="false" stylesheets="@../styles/style.css" text="Зарагестрироваться" textFill="#fffcfc">
          <font>
             <Font name="Monospaced Regular" size="12.0" />
          </font>
@@ -54,17 +54,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField focusTraversable="false" layoutX="344.0" layoutY="82.0" prefHeight="38.0" prefWidth="199.0" promptText="Login" styleClass="text-input" stylesheets="@../styles/style.css">
+      <TextField fx:id="login_auth" focusTraversable="false" layoutX="344.0" layoutY="82.0" prefHeight="38.0" prefWidth="199.0" promptText="Login" styleClass="text-input" stylesheets="@../styles/style.css">
          <font>
             <Font name="Monospaced Regular" size="14.0" />
          </font>
       </TextField>
-      <PasswordField focusTraversable="false" layoutX="345.0" layoutY="143.0" prefHeight="38.0" prefWidth="199.0" promptText="Password" styleClass="text-input" stylesheets="@../styles/style.css">
+      <PasswordField fx:id="pass_auth" focusTraversable="false" layoutX="345.0" layoutY="143.0" prefHeight="38.0" prefWidth="199.0" promptText="Password" styleClass="text-input" stylesheets="@../styles/style.css">
          <font>
             <Font name="Monospaced Regular" size="14.0" />
          </font>
       </PasswordField>
-      <Button layoutX="406.0" layoutY="201.0" mnemonicParsing="false" stylesheets="@../styles/style.css" text="Войти" textFill="#fffcfc">
+      <Button fx:id="btn_auth" layoutX="406.0" layoutY="201.0" mnemonicParsing="false" stylesheets="@../styles/style.css" text="Войти" textFill="#fffcfc">
          <font>
             <Font name="Monospaced Regular" size="12.0" />
          </font>

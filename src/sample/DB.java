@@ -1,8 +1,6 @@
 package sample;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DB {
 
@@ -15,7 +13,7 @@ public class DB {
     private Connection dbConn = null;
 
     private Connection getDbConnection() throws ClassNotFoundException, SQLException {
-        String connStr = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DB_NAME;
+        String connStr = "jdbc:mysql://localhost/yourDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" + HOST + ":" + PORT + "/" + DB_NAME;
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         dbConn = DriverManager.getConnection(connStr, LOGIN, PASS);
@@ -26,6 +24,25 @@ public class DB {
     public void isConnected () throws SQLException, ClassNotFoundException {
         dbConn = getDbConnection();
         System.out.println(dbConn.isValid(1000));
+
+    }
+
+    public boolean regUser(String login, String email, String password) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO `users` (`login`, `email`, `password`) VALUES (?, ?, ?) " ;
+
+        Statement statement = getDbConnection().createStatement();
+        ResultSet res = statement.executeQuery("SELECT * FROM `users` WHERE `login` = '" + login +  "' LIMIT 1");
+        if(res.next())
+            return  false;
+
+        PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+         prSt.setString(1, login);
+         prSt.setString(2, email);
+         prSt.setString(3, password);
+         prSt.executeUpdate();
+
+         return true;
+
 
     }
 
