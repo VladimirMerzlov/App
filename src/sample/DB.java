@@ -13,7 +13,7 @@ public class DB {
     private Connection dbConn = null;
 
     private Connection getDbConnection() throws ClassNotFoundException, SQLException {
-        String connStr = "jdbc:mysql://localhost/yourDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" + HOST + ":" + PORT + "/" + DB_NAME;
+        String connStr = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DB_NAME;
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         dbConn = DriverManager.getConnection(connStr, LOGIN, PASS);
@@ -43,6 +43,15 @@ public class DB {
 
          return true;
 
+
+    }
+
+    public boolean authUser(String login, String pass) throws SQLException, ClassNotFoundException {
+        Statement statement = getDbConnection().createStatement();
+        String sql = "SELECT * FROM `users` WHERE `login` = '" + login +  "' AND `password` = '" + pass + "' LIMIT 1" ;
+        ResultSet res = statement.executeQuery(sql);
+
+        return res.next();
 
     }
 

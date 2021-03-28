@@ -1,6 +1,10 @@
 package sample.controllers;
 
+import java.math.BigInteger;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -69,14 +73,16 @@ public class RegController {
 
             }
 
+            String pass = md5String(pass_reg.getCharacters().toString());
+
             try {
-                boolean isAuth = db.regUser(login_reg.getCharacters().toString(), email_reg.getCharacters().toString(), pass_reg.getCharacters().toString());
-                if (isAuth) {
+                boolean isReg = db.regUser(login_reg.getCharacters().toString(), email_reg.getCharacters().toString(), pass);
+                if (isReg) {
                     login_reg.setText("");
                     email_reg.setText("");
                     pass_reg.setText("");
                     btn_reg.setText("Готово");
-                }else{
+                } else {
                     btn_reg.setText("Введите новый логин");
                 }
             } catch (SQLException e) {
@@ -84,7 +90,64 @@ public class RegController {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+
+
         });
 
+
+        btn_auth.setOnAction(event -> {
+
+            login_auth.setStyle("-fx-border-color: #fafafa");
+            pass_auth.setStyle("-fx-border-color: #fafafa");
+
+            if (login_auth.getCharacters().length() <= 3) {
+                login_auth.setStyle("-fx-border-color: red");
+                return;
+            } else if (pass_auth.getCharacters().length() <= 7) {
+                pass_auth.setStyle("-fx-border-color: red");
+                return;
+            }
+
+            String pass = md5String(pass_auth.getCharacters().toString());
+
+            try {
+                boolean isAuth = db.authUser(login_auth.getCharacters().toString(), pass);
+                if (isAuth) {
+                    login_auth.setText("");
+                    pass_auth.setText("");
+                    btn_auth.setText("Готово");
+                } else {
+                    btn_auth.setText("Не найден");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+        });
+    }
+
+    public static String md5String(String pass) {
+        MessageDigest messageDigest = null;
+        byte[] digest = new byte[0];
+
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.reset();
+            messageDigest.update(pass.getBytes());
+            digest = messageDigest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        BigInteger bigInteger = new BigInteger(1, digest);
+        String md5Hex = bigInteger.toString(16);
+
+        while (md5Hex.length() < 32) {
+            md5Hex = "0" + md5Hex;
+
+        }
+        return md5Hex;
     }
 }
